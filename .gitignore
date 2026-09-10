@@ -1,0 +1,33 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Secrets / environment
+.env
+
+# Virtual environments
+.venv
+
+# Recorded videos (Playwright built-in recorder emits .webm)
+videos/
+*.webm
+*.mp4
+
+*.json
+*.log
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.tiff
+*.ico
+*.webp
+*.svg
+*.pdf
+*.docx
+*.doc

@@ -1,0 +1,19 @@
+[project]
+name = "alumnium_tests"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "alumnium @ https://files.pythonhosted.org/packages/68/dc/6835ddf1d50678f02428ba3534e21df6160591fb61af0572b232b7330567/alumnium-0.17.0.tar.gz",
+    "openpyxl>=3.1.5",
+    "pandas>=3.0.1",
+    "playwright>=1.58.0",
+    "pytest>=9.0.1",
+    "pytest-order>=1.3.0",
+    "pytest-playwright>=0.4.0",
+    "pytest-xdist>=3.8.0",
+    "python-dotenv>=1.0.1",
+    "python-json-logger>=4.0.0",
+]
+
