@@ -12,6 +12,11 @@ wheels/
 # Virtual environments
 .venv
 
+# Alumnium runtime artifacts
+.alumnium/
+/stdout
+/stderr
+
 # Recorded videos (Playwright built-in recorder emits .webm)
 videos/
 *.webm

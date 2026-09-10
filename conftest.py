@@ -19,7 +19,14 @@ load_dotenv()
 # Non-secret Alumnium config. Defaults apply unless overridden in .env/environment.
 os.environ.setdefault('ALUMNIUM_MODEL', 'openai')
 os.environ.setdefault('ALUMNIUM_LOG_LEVEL', 'debug')
-os.environ.setdefault('ALUMNIUM_LOG_PATH', 'alumnium.log')
+# Send Alumnium's own logs to the console, NOT a file. Alumnium's Python client opens
+# ALUMNIUM_LOG_PATH with a FileHandler (mode="w") and holds it open, while its server
+# subprocess — which inherits the same path — deletes that file on startup. On Windows
+# the open handle locks the file, so the server dies with
+# "EBUSY: resource busy or locked, rm 'alumnium.log'". Using "stdout" makes the client
+# attach a console handler and open no file, so there is nothing for the server to
+# collide with. (This framework keeps its own JSON run reports under logs/ regardless.)
+os.environ.setdefault('ALUMNIUM_LOG_PATH', 'stdout')
 os.environ.setdefault('ALUMNIUM_CACHE', 'filesystem')
 
 # The OpenAI key must come from the environment / .env — never hardcode it.
@@ -98,13 +105,13 @@ def pytest_sessionfinish(session, exitstatus):
         try:
             with open(log_file, 'w', encoding='utf-8') as f:
                 json.dump(report, f, indent=2, ensure_ascii=False)
-            print(f"\n✓ Test report saved to {log_file}")
+            print(f"\n[OK] Test report saved to {log_file}")
             print(f"  Total: {report['test_run']['total_tests']}, "
                   f"Passed: {report['test_run']['passed']}, "
                   f"Failed: {report['test_run']['failed']}, "
                   f"Skipped: {report['test_run']['skipped']}")
         except Exception as e:
-            print(f"\n✗ Failed to save report: {e}")
+            print(f"\n[ERROR] Failed to save report: {e}")
 
 @fixture(scope="session", autouse=True)
 def cleanup_videos():
@@ -162,7 +169,7 @@ def driver(request):
                     if path and Path(path).exists():
                         dest = video_dir / f"{request.node.name.replace('::', '_')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.webm"
                         shutil.move(str(path), str(dest))
-                        print(f"[{request.node.name}] ✓ Video saved: {dest}")
+                        print(f"[{request.node.name}] [OK] Video saved: {dest}")
             except Exception as e:
                 print(f"[{request.node.name}] Video save skipped: {e}")
             browser.close()
