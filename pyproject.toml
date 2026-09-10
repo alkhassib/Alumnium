@@ -5,7 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "alumnium @ https://files.pythonhosted.org/packages/68/dc/6835ddf1d50678f02428ba3534e21df6160591fb61af0572b232b7330567/alumnium-0.17.0.tar.gz",
+    "alumnium>=0.22.0",
     "openpyxl>=3.1.5",
     "pandas>=3.0.1",
     "playwright>=1.58.0",
