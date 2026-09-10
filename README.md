@@ -1,6 +1,6 @@
-# GAM Alumnium Tests
+# Alumnium Tests
 
-AI-driven UI test framework for GAM e-services, built on
+AI-driven UI test framework, built on
 [Playwright](https://playwright.dev/python/), [Alumnium](https://alumnium.ai/)
 and pytest. Runs on **Windows 10/11**.
 
